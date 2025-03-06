@@ -1,0 +1,50 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+    const sorted = nums.sort((a,b)=>a-b)
+    
+    let res = []
+    let max = 0
+
+    for (let i = 0; i < sorted.length ; i++) {
+        if (sorted[i+1] === sorted[i]) continue
+        if (sorted[i+1] - sorted[i] === 1){
+            res.push(sorted[i])
+            continue
+        } 
+        res.push(sorted[i])
+        max = Math.max(res.length,max)
+        res = []
+    }
+
+    return max
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+    if (nums.length === 0) return 0
+
+    const numSet = new Set(nums);
+    let longest = 0;
+
+    for (let num of numSet) {
+        if (!numSet.has(num - 1)) {
+            let currNum = num;
+            let streak = 1;
+
+            while (numSet.has(currNum + 1)) {
+                currNum++;
+                streak++;
+            }
+
+            longest = Math.max(longest, streak);
+        }
+    }
+
+    return longest
+};
